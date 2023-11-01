@@ -1,0 +1,24 @@
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+from sklearn.linear_model import LinearRegression
+
+data = {
+    'Month': ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+    'Sales': [10000, 11000, 12000, 12500, 13000, 14000, 15000, 16000, 16500, 17000, 17500, 18000],
+    'AdCosts': [800, 850, 900, 950, 1000, 1050, 1100, 1150, 1200, 1250, 1300, 1350]
+}
+df = pd.DataFrame(data)
+correlation = df['Sales'].corr(df['AdCosts'])
+x = df['AdCosts'].values.reshape(-1, 1)
+y = df['Sales'].values
+reg = LinearRegression().fit(x, y)
+plt.scatter(df['AdCosts'], df['Sales'], label=f'Correlation: {correlation:.2f}')
+plt.plot(df['AdCosts'], reg.predict(x), color='red', linestyle='--', label=f'Linear Regression')
+plt.xlabel('Ad Costs')
+plt.ylabel('Sales')
+plt.legend()
+plt.show()
+
+
+
